@@ -12,7 +12,7 @@ async function run() {
 }
 
 cron.schedule(
-  "0 15, 18, 21 * * *",
+  "0 15, 19, 21 * * *",
   async () => {
     console.log(`CRON_TRIGGERED ${new Date().toISOString()}`)
     await run()
