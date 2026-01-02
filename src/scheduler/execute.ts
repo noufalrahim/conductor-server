@@ -1,7 +1,8 @@
 import axios from "axios"
+import PDFDocument from "pdfkit"
+import { PassThrough } from "stream"
 import { Seat } from "../types/Seat"
-import { generateSeatHTML } from "../utils/buildSeatMatrix"
-import { htmlToPDF } from "../utils/pdfGenerator"
+import { appendSeatPage } from "../utils/buildSeatMatrix"
 import { sendPDFMail } from "../utils/mailer"
 import { formatPrettyDateTime } from "../utils/dateTimeFormatter"
 
@@ -15,8 +16,14 @@ function formatDate(d: Date) {
 export default async function executeTask() {
   console.log("TASK_START")
 
-  const baseDate = new Date()
+  const doc = new PDFDocument({ autoFirstPage: false })
+  const stream = new PassThrough()
+  const chunks: Buffer[] = []
 
+  doc.pipe(stream)
+  stream.on("data", c => chunks.push(c))
+
+  const baseDate = new Date()
   const dates = [
     new Date(baseDate),
     new Date(new Date(baseDate).setDate(baseDate.getDate() + 1)),
@@ -44,8 +51,6 @@ export default async function executeTask() {
 
   for (const dir of directions) {
     console.log(`DIRECTION_START ${dir.label}`)
-
-    let combinedHTML = ""
 
     for (const d of dates) {
       const date = formatDate(d)
@@ -75,8 +80,6 @@ export default async function executeTask() {
           continue
         }
 
-        console.log(`ROUTE_FOUND ${dir.label} ${date}`)
-
         const seatResp = await axios.get(
           "https://onlineksrtcswift.com/api/resource/seatArrangement",
           {
@@ -90,9 +93,7 @@ export default async function executeTask() {
         const seats: Seat[] =
           seatResp.data.APIGetChartMicrositeResult.Seats
 
-        console.log(`SEAT_DATA_FETCHED ${dir.label} ${date}`)
-
-        const pageHTML = generateSeatHTML(seats, {
+        appendSeatPage(doc, seats, {
           from: dir.fromCityName,
           to: dir.toCityName,
           date,
@@ -100,46 +101,22 @@ export default async function executeTask() {
           arrivalTime: formatPrettyDateTime(route.ArrivalTime),
         })
 
-        combinedHTML += pageHTML
-
-        console.log(`HTML_GENERATED ${dir.label} ${date}`)
+        console.log(`PAGE_ADDED ${dir.label} ${date}`)
       } catch (err) {
         console.error(`DATE_PROCESS_FAILED ${dir.label} ${date}`)
       }
     }
-
-    if (!combinedHTML) {
-      console.log(`NO_HTML_GENERATED ${dir.label}`)
-      continue
-    }
-
-    try {
-      console.log(`PDF_GENERATION_START ${dir.label}`)
-
-      const pdf = await htmlToPDF(combinedHTML)
-
-      console.log(`PDF_GENERATION_SUCCESS ${dir.label}`)
-
-      await sendPDFMail(
-        pdf,
-        `Bus Seat Report | ${dir.label} | ${formatDate(baseDate)} → ${formatDate(
-          dates[2]
-        )}`
-      )
-
-      console.log(`MAIL_SENT_SUCCESS ${dir.label}`)
-    } catch (err) {
-      const errStr =
-        err instanceof Error
-          ? `${err.name}: ${err.message}\n${err.stack ?? ""}`
-          : typeof err === "string"
-            ? err
-            : JSON.stringify(err)
-
-      console.error(errStr)
-      console.error(`PDF_OR_MAIL_FAILED ${dir.label} ${errStr}`)
-    }
   }
+
+  doc.end()
+  await new Promise(r => stream.on("end", r))
+
+  const pdf = Buffer.concat(chunks)
+
+  await sendPDFMail(
+    pdf,
+    `Bus Seat Report | ${formatDate(baseDate)} → ${formatDate(dates[2])}`
+  )
 
   console.log("TASK_END")
 }

@@ -106,3 +106,164 @@ src/scheduler/execute.ts(133,56): error TS1109: Expression expected.
     at Module.require (node:internal/modules/cjs/loader:1289:19) {
   diagnosticCodes: [ 1109 ]
 }
+[2026-01-02T13:08:09.210Z] Server started on port 8000
+[2026-01-02T13:11:28.737Z] ERROR /app/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+[2026-01-02T13:11:28.744Z] ERROR TSError: ⨯ Unable to compile TypeScript:
+src/utils/pdfGenerator.ts(1,25): error TS2307: Cannot find module 'pdfkit' or its corresponding type declarations.
+src/utils/pdfGenerator.ts(18,12): error TS2304: Cannot find name 'stripHtml'.
+
+    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Module.require (node:internal/modules/cjs/loader:1289:19) {
+  diagnosticCodes: [ 2307, 2304 ]
+}
+[2026-01-02T13:11:53.565Z] ERROR /app/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+[2026-01-02T13:11:53.572Z] ERROR TSError: ⨯ Unable to compile TypeScript:
+src/utils/pdfGenerator.ts(1,25): error TS2307: Cannot find module 'pdfkit' or its corresponding type declarations.
+
+    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Module.require (node:internal/modules/cjs/loader:1289:19) {
+  diagnosticCodes: [ 2307 ]
+}
+[2026-01-02T13:15:50.844Z] Server started on port 8000
+[2026-01-02T13:16:03.320Z] TASK_START
+[2026-01-02T13:16:03.321Z] DIRECTION_START UP
+[2026-01-02T13:16:03.322Z] DATE_PROCESS_START UP 2026-01-02
+[2026-01-02T13:16:04.158Z] ROUTE_NOT_FOUND UP 2026-01-02
+[2026-01-02T13:16:04.159Z] DATE_PROCESS_START UP 2026-01-03
+[2026-01-02T13:16:04.660Z] ROUTE_FOUND UP 2026-01-03
+[2026-01-02T13:16:05.152Z] SEAT_DATA_FETCHED UP 2026-01-03
+[2026-01-02T13:16:05.157Z] HTML_GENERATED UP 2026-01-03
+[2026-01-02T13:16:05.158Z] DATE_PROCESS_START UP 2026-01-04
+[2026-01-02T13:16:05.676Z] ROUTE_FOUND UP 2026-01-04
+[2026-01-02T13:16:06.281Z] SEAT_DATA_FETCHED UP 2026-01-04
+[2026-01-02T13:16:06.285Z] HTML_GENERATED UP 2026-01-04
+[2026-01-02T13:16:06.285Z] PDF_GENERATION_START UP
+[2026-01-02T13:16:06.330Z] PDF_GENERATION_SUCCESS UP
+[2026-01-02T13:16:10.510Z] [object Object]
+[2026-01-02T13:16:10.512Z] MAIL_SENT_SUCCESS UP
+[2026-01-02T13:16:10.513Z] DIRECTION_START DOWN
+[2026-01-02T13:16:10.514Z] DATE_PROCESS_START DOWN 2026-01-02
+[2026-01-02T13:16:11.131Z] ROUTE_FOUND DOWN 2026-01-02
+[2026-01-02T13:16:11.638Z] SEAT_DATA_FETCHED DOWN 2026-01-02
+[2026-01-02T13:16:11.643Z] ERROR DATE_PROCESS_FAILED DOWN 2026-01-02
+[2026-01-02T13:16:11.645Z] DATE_PROCESS_START DOWN 2026-01-03
+[2026-01-02T13:16:12.353Z] ROUTE_FOUND DOWN 2026-01-03
+[2026-01-02T13:16:12.867Z] SEAT_DATA_FETCHED DOWN 2026-01-03
+[2026-01-02T13:16:12.870Z] HTML_GENERATED DOWN 2026-01-03
+[2026-01-02T13:16:12.871Z] DATE_PROCESS_START DOWN 2026-01-04
+[2026-01-02T13:16:13.307Z] ROUTE_FOUND DOWN 2026-01-04
+[2026-01-02T13:16:13.819Z] SEAT_DATA_FETCHED DOWN 2026-01-04
+[2026-01-02T13:16:13.822Z] HTML_GENERATED DOWN 2026-01-04
+[2026-01-02T13:16:13.823Z] PDF_GENERATION_START DOWN
+[2026-01-02T13:16:13.855Z] PDF_GENERATION_SUCCESS DOWN
+[2026-01-02T13:16:18.409Z] [object Object]
+[2026-01-02T13:16:18.411Z] MAIL_SENT_SUCCESS DOWN
+[2026-01-02T13:16:18.412Z] TASK_END
+[2026-01-02T13:17:56.173Z] ERROR /app/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+[2026-01-02T13:17:56.179Z] ERROR TSError: ⨯ Unable to compile TypeScript:
+src/scheduler/execute.ts(3,10): error TS2305: Module '"../utils/buildSeatMatrix"' has no exported member 'generateSeatHTML'.
+
+    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Module.require (node:internal/modules/cjs/loader:1289:19) {
+  diagnosticCodes: [ 2305 ]
+}
+[2026-01-02T13:18:03.451Z] ERROR /app/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+[2026-01-02T13:18:03.458Z] ERROR TSError: ⨯ Unable to compile TypeScript:
+src/scheduler/execute.ts(95,26): error TS2304: Cannot find name 'generateSeatHTML'.
+
+    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Module.require (node:internal/modules/cjs/loader:1289:19) {
+  diagnosticCodes: [ 2304 ]
+}
+[2026-01-02T13:18:11.279Z] Server started on port 8000
+[2026-01-02T13:18:15.310Z] TASK_START
+[2026-01-02T13:18:15.311Z] DIRECTION_START UP
+[2026-01-02T13:18:15.313Z] DATE_PROCESS_START UP 2026-01-02
+[2026-01-02T13:18:16.140Z] ROUTE_NOT_FOUND UP 2026-01-02
+[2026-01-02T13:18:16.141Z] DATE_PROCESS_START UP 2026-01-03
+[2026-01-02T13:18:16.671Z] ROUTE_FOUND UP 2026-01-03
+[2026-01-02T13:18:17.189Z] SEAT_DATA_FETCHED UP 2026-01-03
+[2026-01-02T13:18:17.231Z] HTML_GENERATED UP 2026-01-03
+[2026-01-02T13:18:17.232Z] DATE_PROCESS_START UP 2026-01-04
+[2026-01-02T13:18:17.792Z] ROUTE_FOUND UP 2026-01-04
+[2026-01-02T13:18:18.414Z] SEAT_DATA_FETCHED UP 2026-01-04
+[2026-01-02T13:18:18.429Z] HTML_GENERATED UP 2026-01-04
+[2026-01-02T13:18:18.429Z] PDF_GENERATION_START UP
+[2026-01-02T13:18:18.437Z] PDF_GENERATION_SUCCESS UP
+[2026-01-02T13:18:22.746Z] [object Object]
+[2026-01-02T13:18:22.747Z] MAIL_SENT_SUCCESS UP
+[2026-01-02T13:18:22.748Z] DIRECTION_START DOWN
+[2026-01-02T13:18:22.748Z] DATE_PROCESS_START DOWN 2026-01-02
+[2026-01-02T13:18:24.468Z] ROUTE_FOUND DOWN 2026-01-02
+[2026-01-02T13:18:24.795Z] SEAT_DATA_FETCHED DOWN 2026-01-02
+[2026-01-02T13:18:24.808Z] HTML_GENERATED DOWN 2026-01-02
+[2026-01-02T13:18:24.810Z] DATE_PROCESS_START DOWN 2026-01-03
+[2026-01-02T13:18:24.827Z] ERROR TypeError: Cannot read properties of null (reading 'filter')
+    at /app/src/utils/buildSeatMatrix.ts:39:25
+    at Generator.next (<anonymous>)
+    at /app/src/utils/buildSeatMatrix.ts:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (/app/src/utils/buildSeatMatrix.ts:4:12)
+    at generateSeatPDF (/app/src/utils/buildSeatMatrix.ts:19:12)
+    at /app/src/scheduler/execute.ts:95:41
+    at Generator.next (<anonymous>)
+    at fulfilled (/app/src/scheduler/execute.ts:5:58)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2026-01-02T13:25:07.092Z] Server started on port 8000
+[2026-01-02T13:25:14.050Z] TASK_START
+[2026-01-02T13:25:14.063Z] DIRECTION_START UP
+[2026-01-02T13:25:14.063Z] DATE_PROCESS_START UP 2026-01-02
+[2026-01-02T13:25:14.853Z] ROUTE_NOT_FOUND UP 2026-01-02
+[2026-01-02T13:25:14.855Z] DATE_PROCESS_START UP 2026-01-03
+[2026-01-02T13:25:16.018Z] PAGE_ADDED UP 2026-01-03
+[2026-01-02T13:25:16.019Z] DATE_PROCESS_START UP 2026-01-04
+[2026-01-02T13:25:17.169Z] PAGE_ADDED UP 2026-01-04
+[2026-01-02T13:25:17.170Z] DIRECTION_START DOWN
+[2026-01-02T13:25:17.171Z] DATE_PROCESS_START DOWN 2026-01-02
+[2026-01-02T13:25:18.040Z] ERROR DATE_PROCESS_FAILED DOWN 2026-01-02
+[2026-01-02T13:25:18.042Z] DATE_PROCESS_START DOWN 2026-01-03
+[2026-01-02T13:25:19.287Z] PAGE_ADDED DOWN 2026-01-03
+[2026-01-02T13:25:19.288Z] DATE_PROCESS_START DOWN 2026-01-04
+[2026-01-02T13:25:21.399Z] PAGE_ADDED DOWN 2026-01-04
+[2026-01-02T13:25:25.710Z] [object Object]
+[2026-01-02T13:25:25.714Z] TASK_END
