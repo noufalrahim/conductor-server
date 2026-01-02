@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  conductor:
+    platform: linux/amd64
+    container_name: conductor-dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+      TZ: Asia/Kolkata
+    restart: unless-stopped
