@@ -130,7 +130,7 @@ export default async function executeTask() {
       console.log(`MAIL_SENT_SUCCESS ${dir.label}`)
     } catch (err) {
       console.error(err)
-      console.error(`PDF_OR_MAIL_FAILED ${dir.label}`)
+      console.error(`PDF_OR_MAIL_FAILED ${dir.label} ${err}`)
     }
   }
 
