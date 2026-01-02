@@ -129,8 +129,15 @@ export default async function executeTask() {
 
       console.log(`MAIL_SENT_SUCCESS ${dir.label}`)
     } catch (err) {
-      console.error(err)
-      console.error(`PDF_OR_MAIL_FAILED ${dir.label} ${err}`)
+      const errStr =
+        err instanceof Error
+          ? `${err.name}: ${err.message}\n${err.stack ?? ""}`
+          : typeof err === "string"
+            ? err
+            : JSON.stringify(err)
+
+      console.error(errStr)
+      console.error(`PDF_OR_MAIL_FAILED ${dir.label} ${errStr}`)
     }
   }
 
