@@ -3,6 +3,7 @@ import express from "express"
 import { run } from "./scheduler/cron"
 
 const app = express()
+const isVercel = process.env.VERCEL === "1"
 
 app.use(express.json())
 
@@ -24,6 +25,10 @@ app.get("/logs", (_req, res) => {
   res.sendFile(process.cwd() + "/logs/app.log")
 })
 
-app.listen(8000, () => {
-  console.log("Server started on port 8000")
-})
+if (!isVercel) {
+  app.listen(8000, () => {
+    console.log("Server started on port 8000")
+  })
+}
+
+export default app

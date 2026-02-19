@@ -1,13 +1,34 @@
 {
-    "version": 2,
-    "builds": [{
-        "src": "src/index.ts",
-        "use": "@vercel/node"
-    }],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "src/index.ts"
-        }
-    ]
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "functions": {
+    "src/index.ts": {
+      "maxDuration": 60
+    }
+  },
+  "crons": [
+    {
+      "path": "/execute",
+      "schedule": "30 6 * * *"
+    },
+    {
+      "path": "/execute",
+      "schedule": "30 11 * * *"
+    },
+    {
+      "path": "/execute",
+      "schedule": "30 13 * * *"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "src/index.ts"
+    }
+  ]
 }

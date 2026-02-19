@@ -2,6 +2,7 @@ import cron from "node-cron"
 import executeTask from "./execute"
 
 let isTaskRunning = false
+const isVercel = process.env.VERCEL === "1"
 
 async function run(trigger: "startup" | "schedule" | "manual" = "schedule") {
   if (isTaskRunning) {
@@ -23,17 +24,19 @@ async function run(trigger: "startup" | "schedule" | "manual" = "schedule") {
   }
 }
 
-cron.schedule(
-  "0 12,17,19 * * *",
-  async () => {
-    console.log(`CRON_TRIGGERED ${new Date().toISOString()}`)
-    await run("schedule")
-  },
-  {
-    timezone: "Asia/Kolkata",
-  }
-)
+if (!isVercel) {
+  cron.schedule(
+    "0 12,17,19 * * *",
+    async () => {
+      console.log(`CRON_TRIGGERED ${new Date().toISOString()}`)
+      await run("schedule")
+    },
+    {
+      timezone: "Asia/Kolkata",
+    }
+  )
 
-void run("startup")
+  void run("startup")
+}
 
 export { run }

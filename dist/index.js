@@ -16,6 +16,7 @@ require("./logger");
 const express_1 = __importDefault(require("express"));
 const cron_1 = require("./scheduler/cron");
 const app = (0, express_1.default)();
+const isVercel = process.env.VERCEL === "1";
 app.use(express_1.default.json());
 app.get("/", (_req, res) => {
     res.send("Welcome to conductor server!");
@@ -33,6 +34,9 @@ app.get("/execute", (_req, res) => __awaiter(void 0, void 0, void 0, function* (
 app.get("/logs", (_req, res) => {
     res.sendFile(process.cwd() + "/logs/app.log");
 });
-app.listen(8000, () => {
-    console.log("Server started on port 8000");
-});
+if (!isVercel) {
+    app.listen(8000, () => {
+        console.log("Server started on port 8000");
+    });
+}
+exports.default = app;

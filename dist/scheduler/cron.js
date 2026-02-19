@@ -16,6 +16,7 @@ exports.run = run;
 const node_cron_1 = __importDefault(require("node-cron"));
 const execute_1 = __importDefault(require("./execute"));
 let isTaskRunning = false;
+const isVercel = process.env.VERCEL === "1";
 function run() {
     return __awaiter(this, arguments, void 0, function* (trigger = "schedule") {
         if (isTaskRunning) {
@@ -37,10 +38,12 @@ function run() {
         }
     });
 }
-node_cron_1.default.schedule("0 12,17,19 * * *", () => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(`CRON_TRIGGERED ${new Date().toISOString()}`);
-    yield run("schedule");
-}), {
-    timezone: "Asia/Kolkata",
-});
-void run("startup");
+if (!isVercel) {
+    node_cron_1.default.schedule("0 12,17,19 * * *", () => __awaiter(void 0, void 0, void 0, function* () {
+        console.log(`CRON_TRIGGERED ${new Date().toISOString()}`);
+        yield run("schedule");
+    }), {
+        timezone: "Asia/Kolkata",
+    });
+    void run("startup");
+}
