@@ -784,3 +784,64 @@ src/scheduler/execute.ts(312,5): error TS2345: Argument of type 'Buffer<ArrayBuf
 [2026-02-19T17:14:59.041Z] DATE_DIRECTION_ALREADY_MAILED_SKIP DOWN 2026-02-21
 [2026-02-19T17:14:59.042Z] ERROR NO_VALID_PAGES_GENERATED_SKIP_MAIL
 [2026-02-19T17:14:59.043Z] TASK_RUN_SUCCESS trigger=manual at=2026-02-19T17:14:59.043Z
+[2026-02-19T18:09:45.276Z] ERROR /Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+[2026-02-19T18:09:45.277Z] ERROR TSError: ⨯ Unable to compile TypeScript:
+[96msrc/db/mongo.ts[0m:[93m1[0m:[93m29[0m - [91merror[0m[90m TS2307: [0mCannot find module 'mongodb' or its corresponding type declarations.
+
+[7m1[0m import { MongoClient } from "mongodb"
+[7m [0m [91m                            ~~~~~~~~~[0m
+
+    at createTSError [90m(/Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/[39mnode_modules/[4mts-node[24m/src/index.ts:859:12[90m)[39m
+    at reportTSError [90m(/Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/[39mnode_modules/[4mts-node[24m/src/index.ts:863:19[90m)[39m
+    at getOutput [90m(/Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/[39mnode_modules/[4mts-node[24m/src/index.ts:1077:36[90m)[39m
+    at Object.compile [90m(/Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/[39mnode_modules/[4mts-node[24m/src/index.ts:1433:41[90m)[39m
+    at Module.m._compile [90m(/Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/[39mnode_modules/[4mts-node[24m/src/index.ts:1617:30[90m)[39m
+[90m    at node:internal/modules/cjs/loader:1893:10[39m
+    at Object.require.extensions.<computed> [as .ts] [90m(/Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/[39mnode_modules/[4mts-node[24m/src/index.ts:1621:12[90m)[39m
+[90m    at Module.load (node:internal/modules/cjs/loader:1480:32)[39m
+[90m    at Module._load (node:internal/modules/cjs/loader:1299:12)[39m
+[90m    at TracingChannel.traceSync (node:diagnostics_channel:328:14)[39m {
+  diagnosticCodes: [ [33m2307[39m ]
+}
+[2026-02-19T18:13:21.580Z] TASK_RUN_START trigger=startup at=2026-02-19T18:13:21.579Z
+[2026-02-19T18:13:21.581Z] TASK_START
+[2026-02-19T18:13:21.583Z] Server started on port 8000
+[2026-02-19T18:13:25.018Z] CRON_SCHEDULE_UPDATED timings=12:00,17:00,19:00
+[2026-02-19T18:13:25.282Z] DIRECTION_START UP
+[2026-02-19T18:13:25.282Z] DATE_PROCESS_START UP 2026-02-19
+[2026-02-19T18:13:27.102Z] ROUTE_NOT_FOUND UP 2026-02-19
+[2026-02-19T18:13:27.102Z] DATE_PROCESS_START UP 2026-02-20
+[2026-02-19T18:13:28.121Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-20 route=4711~4901~10072~451~2026-02-20 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-19T18:13:28.134Z] PAGE_ADDED UP 2026-02-20 route=4711~4901~10072~451~2026-02-20
+[2026-02-19T18:13:28.609Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-20 route=815~815~10072~451~2026-02-20 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-19T18:13:28.618Z] PAGE_ADDED UP 2026-02-20 route=815~815~10072~451~2026-02-20
+[2026-02-19T18:13:29.145Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-20 route=799~781~10072~451~2026-02-20 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-19T18:13:29.152Z] PAGE_ADDED UP 2026-02-20 route=799~781~10072~451~2026-02-20
+[2026-02-19T18:13:29.656Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-20 route=950~1011~10072~451~2026-02-20 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-19T18:13:29.663Z] PAGE_ADDED UP 2026-02-20 route=950~1011~10072~451~2026-02-20
+[2026-02-19T18:13:29.664Z] DATE_PROCESS_START UP 2026-02-21
+[2026-02-19T18:13:30.764Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-21 route=4711~4901~10072~451~2026-02-21 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-19T18:13:30.773Z] PAGE_ADDED UP 2026-02-21 route=4711~4901~10072~451~2026-02-21
+[2026-02-19T18:13:31.233Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-21 route=815~815~10072~451~2026-02-21 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-19T18:13:31.241Z] PAGE_ADDED UP 2026-02-21 route=815~815~10072~451~2026-02-21
+[2026-02-19T18:13:31.739Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-21 route=799~781~10072~451~2026-02-21 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-19T18:13:31.746Z] PAGE_ADDED UP 2026-02-21 route=799~781~10072~451~2026-02-21
+[2026-02-19T18:13:33.223Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-21 route=950~1011~10072~451~2026-02-21 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-19T18:13:33.231Z] PAGE_ADDED UP 2026-02-21 route=950~1011~10072~451~2026-02-21
+[2026-02-19T18:13:33.241Z] DIRECTION_START DOWN
+[2026-02-19T18:13:33.241Z] DATE_PROCESS_START DOWN 2026-02-19
+[2026-02-19T18:13:33.853Z] ROUTE_NOT_FOUND DOWN 2026-02-19
+[2026-02-19T18:13:33.855Z] DATE_PROCESS_START DOWN 2026-02-20
+[2026-02-19T18:13:34.908Z] ERROR SEAT_VALIDATION_WARNINGS DOWN 2026-02-20 route=2823~2881~451~10072~2026-02-20 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-19T18:13:34.915Z] PAGE_ADDED DOWN 2026-02-20 route=2823~2881~451~10072~2026-02-20
+[2026-02-19T18:13:34.915Z] DATE_PROCESS_START DOWN 2026-02-21
+[2026-02-19T18:13:35.972Z] ERROR SEAT_VALIDATION_WARNINGS DOWN 2026-02-21 route=2823~2881~451~10072~2026-02-21 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-19T18:13:35.975Z] PAGE_ADDED DOWN 2026-02-21 route=2823~2881~451~10072~2026-02-21
+[2026-02-19T18:13:40.980Z] [object Object]
+[2026-02-19T18:13:40.981Z] TASK_END pages=10 attachments=2
+[2026-02-19T18:13:40.982Z] TASK_RUN_SUCCESS trigger=startup at=2026-02-19T18:13:40.982Z
+[2026-02-19T18:14:32.680Z] CRON_SCHEDULE_UPDATED timings=12:00,17:00,19:00,23:57
+[2026-02-19T18:14:35.441Z] CRON_SCHEDULE_UPDATED timings=12:00,17:00,19:00,23:57
+[2026-02-19T18:14:38.635Z] CRON_SCHEDULE_UPDATED timings=12:00,17:00,19:00,23:57

@@ -1,11 +1,13 @@
 import "./logger"
 import express from "express"
+import adminRouter from "./router/adminRouter"
 import { run } from "./scheduler/cron"
 
 const app = express()
 const isVercel = process.env.VERCEL === "1"
 
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 app.get("/", (_req, res) => {
   res.send("Welcome to conductor server!")
@@ -20,6 +22,8 @@ app.get("/execute", async (_req, res) => {
     res.status(500).send(`Execution failed: ${message}`)
   }
 })
+
+app.use("/admin", adminRouter)
 
 app.get("/logs", (_req, res) => {
   res.sendFile(process.cwd() + "/logs/app.log")

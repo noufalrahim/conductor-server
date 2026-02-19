@@ -14,21 +14,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendPDFMail = sendPDFMail;
 const nodemailer_1 = __importDefault(require("nodemailer"));
-function sendPDFMail(attachments, subject) {
+function sendPDFMail(attachments, subject, toEmails, briefingText) {
     return __awaiter(this, void 0, void 0, function* () {
+        const smtpUser = process.env.SMTP_USER || "noufal.nexorian@gmail.com";
+        const smtpPass = process.env.SMTP_PASS || "krwcmundtouqhfyn";
         const transporter = nodemailer_1.default.createTransport({
             host: "smtp.gmail.com",
             port: 465,
             secure: true,
             auth: {
-                user: "noufal.nexorian@gmail.com",
-                pass: "krwcmundtouqhfyn",
+                user: smtpUser,
+                pass: smtpPass,
             },
         });
         const resp = yield transporter.sendMail({
-            from: "noufal.nexorian@gmail.com",
-            to: "noufalrahim6784@gmail.com",
+            from: smtpUser,
+            to: toEmails.join(","),
             subject,
+            text: briefingText,
             attachments,
         });
         console.log(resp);

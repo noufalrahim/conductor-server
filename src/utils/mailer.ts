@@ -7,22 +7,28 @@ type MailAttachment = {
 
 export async function sendPDFMail(
   attachments: MailAttachment[],
-  subject: string
+  subject: string,
+  toEmails: string[],
+  briefingText: string
 ) {
+  const smtpUser = process.env.SMTP_USER || "noufal.nexorian@gmail.com"
+  const smtpPass = process.env.SMTP_PASS || "krwcmundtouqhfyn"
+
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
     secure: true,
     auth: {
-      user: "noufal.nexorian@gmail.com",
-      pass: "krwcmundtouqhfyn",
+      user: smtpUser,
+      pass: smtpPass,
     },
   })
 
   const resp = await transporter.sendMail({
-    from: "noufal.nexorian@gmail.com",
-    to: "noufalrahim6784@gmail.com",
+    from: smtpUser,
+    to: toEmails.join(","),
     subject,
+    text: briefingText,
     attachments,
   })
 

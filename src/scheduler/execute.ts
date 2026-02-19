@@ -1,22 +1,16 @@
 import axios from "axios"
 import PDFDocument from "pdfkit"
 import { PassThrough } from "stream"
+import { getAppConfig } from "../store/appConfigStore"
+import { RouteConfig } from "../types/AppConfig"
 import { Seat } from "../types/Seat"
 import { appendSeatPage } from "../utils/buildSeatMatrix"
-import { sendPDFMail } from "../utils/mailer"
 import {
   formatPrettyDateTime,
   getIstDateString,
   getIstHour,
 } from "../utils/dateTimeFormatter"
-
-type Direction = {
-  label: "UP" | "DOWN"
-  fromCityID: number
-  toCityID: number
-  fromCityName: string
-  toCityName: string
-}
+import { sendPDFMail } from "../utils/mailer"
 
 type RouteApi = {
   RouteScheduleId?: string
@@ -33,6 +27,7 @@ type DirectionResult = {
     content: Buffer
   }
   pagesAdded: number
+  briefingLines: string[]
 }
 
 const WINDOW_DAYS = 3
@@ -74,15 +69,15 @@ function getRouteStartTime(route: RouteApi) {
   return route.DepartureTime
 }
 
-function isNightRoute(route: RouteApi) {
+function isNightRoute(route: RouteApi, nightStartHour: number) {
   const startTime = getRouteStartTime(route)
   if (typeof startTime !== "string") return false
 
   const hour = getIstHour(startTime)
-  return !Number.isNaN(hour) && hour >= 19
+  return !Number.isNaN(hour) && hour >= nightStartHour
 }
 
-function validateRoute(route: RouteApi, dir: Direction, requestedDate: string) {
+function validateRoute(route: RouteApi, dir: RouteConfig, requestedDate: string) {
   const errors: string[] = []
 
   if (!route || typeof route !== "object") {
@@ -150,13 +145,15 @@ function toTimeSortValue(dateTime: string | undefined) {
 }
 
 async function processDirection(
-  dir: Direction,
-  dates: Date[]
+  dir: RouteConfig,
+  dates: Date[],
+  nightStartHour: number
 ): Promise<DirectionResult> {
   const doc = new PDFDocument({ autoFirstPage: false })
   const stream = new PassThrough()
   const chunks: Buffer[] = []
   let pagesAdded = 0
+  const briefingLines: string[] = []
 
   doc.pipe(stream)
   stream.on("data", c => chunks.push(c))
@@ -199,7 +196,7 @@ async function processDirection(
           continue
         }
 
-        if (!isNightRoute(route)) {
+        if (!isNightRoute(route, nightStartHour)) {
           continue
         }
 
@@ -252,6 +249,8 @@ async function processDirection(
             continue
           }
 
+          const seatsPending = seats.filter(s => s.IsAvailable === 1).length
+
           appendSeatPage(doc, seats, {
             from: dir.fromCityName,
             to: dir.toCityName,
@@ -259,6 +258,10 @@ async function processDirection(
             departureTime: formatPrettyDateTime(startTime),
             arrivalTime: formatPrettyDateTime(arrivalTime),
           })
+
+          briefingLines.push(
+            `${dir.label} | ${getIstDateString(startTime)} | ${formatPrettyDateTime(startTime)} | seats pending: ${seatsPending}`
+          )
 
           pagesAdded += 1
           console.log(`PAGE_ADDED ${dir.label} ${date} route=${routeId}`)
@@ -297,36 +300,33 @@ async function processDirection(
       content: Buffer.concat(chunks),
     },
     pagesAdded,
+    briefingLines,
   }
 }
 
 export default async function executeTask() {
   console.log("TASK_START")
 
+  const config = await getAppConfig()
+
+  if (!config.emails.length) {
+    console.error("NO_RECIPIENT_EMAILS_CONFIGURED_SKIP_MAIL")
+    return
+  }
+
+  const activeRoutes = config.routes.filter(route => route.enabled !== false)
+  if (!activeRoutes.length) {
+    console.error("NO_ACTIVE_ROUTES_CONFIGURED_SKIP_TASK")
+    return
+  }
+
   const baseDate = new Date()
   const dates = getTargetDatesUTC(baseDate)
   const targetDates = dates.map(d => formatDateUTC(d))
 
-  const directions: Direction[] = [
-    {
-      label: "UP",
-      fromCityID: 10072,
-      toCityID: 451,
-      fromCityName: "Kozhikode (11)",
-      toCityName: "Kanjirappally (704)",
-    },
-    {
-      label: "DOWN",
-      fromCityID: 451,
-      toCityID: 10072,
-      fromCityName: "Kanjirappally (704)",
-      toCityName: "Kozhikode (11)",
-    },
-  ]
-
   const results: DirectionResult[] = []
-  for (const dir of directions) {
-    results.push(await processDirection(dir, dates))
+  for (const route of activeRoutes) {
+    results.push(await processDirection(route, dates, config.nightStartHour))
   }
 
   const totalPages = results.reduce((sum, r) => sum + r.pagesAdded, 0)
@@ -335,9 +335,19 @@ export default async function executeTask() {
     return
   }
 
+  const briefing = [
+    `Bus Seat Report Briefing`,
+    `Date Window (UTC): ${targetDates.join(", ")}`,
+    `Night Filter Start (IST): ${String(config.nightStartHour).padStart(2, "0")}:00`,
+    ``,
+    ...results.flatMap(r => r.briefingLines),
+  ].join("\n")
+
   await sendPDFMail(
     results.map(r => r.attachment),
-    `Bus Seat Report | ${targetDates.join(", ")}`
+    `Bus Seat Report | ${targetDates.join(", ")}`,
+    config.emails,
+    briefing
   )
 
   console.log(`TASK_END pages=${totalPages} attachments=${results.length}`)
