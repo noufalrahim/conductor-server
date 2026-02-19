@@ -6,11 +6,6 @@
       "use": "@vercel/node"
     }
   ],
-  "functions": {
-    "src/index.ts": {
-      "maxDuration": 60
-    }
-  },
   "crons": [
     {
       "path": "/execute",
