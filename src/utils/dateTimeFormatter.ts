@@ -1,15 +1,55 @@
-export function formatPrettyDateTime(dateTime: string) {
+const IST_TIMEZONE = "Asia/Kolkata"
+
+function getIstDateParts(dateTime: string) {
   const d = new Date(dateTime)
 
-  const day = d.getDate()
-  const year = d.getFullYear()
-
-  const month = d.toLocaleString("en-US", { month: "short" })
-  const time = d.toLocaleString("en-US", {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: IST_TIMEZONE,
+    year: "numeric",
+    month: "short",
+    day: "numeric",
     hour: "numeric",
     minute: "2-digit",
     hour12: true,
-  })
+  }).formatToParts(d)
+
+  const part = (type: Intl.DateTimeFormatPartTypes) =>
+    parts.find(p => p.type === type)?.value ?? ""
+
+  return {
+    day: Number(part("day")),
+    month: part("month"),
+    year: Number(part("year")),
+    hour: part("hour"),
+    minute: part("minute"),
+    dayPeriod: part("dayPeriod"),
+  }
+}
+
+export function getIstDateString(dateTime: string) {
+  const d = new Date(dateTime)
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: IST_TIMEZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(d)
+}
+
+export function getIstHour(dateTime: string) {
+  const d = new Date(dateTime)
+  return Number(
+    new Intl.DateTimeFormat("en-US", {
+      timeZone: IST_TIMEZONE,
+      hour: "2-digit",
+      hour12: false,
+    }).format(d)
+  )
+}
+
+export function formatPrettyDateTime(dateTime: string) {
+  const { day, month, year, hour, minute, dayPeriod } = getIstDateParts(dateTime)
+  const time = `${hour}:${minute} ${dayPeriod}`
 
   const suffix =
     day % 10 === 1 && day !== 11 ? "st" :
@@ -17,5 +57,5 @@ export function formatPrettyDateTime(dateTime: string) {
     day % 10 === 3 && day !== 13 ? "rd" :
     "th"
 
-  return `${day}${suffix} ${month} ${year}, ${time}`
+  return `${day}${suffix} ${month} ${year}, ${time} IST`
 }

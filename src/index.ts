@@ -1,7 +1,6 @@
 import "./logger"
 import express from "express"
-import "./scheduler/cron"
-import executeTask from "./scheduler/execute"
+import { run } from "./scheduler/cron"
 
 const app = express()
 
@@ -11,8 +10,14 @@ app.get("/", (_req, res) => {
   res.send("Welcome to conductor server!")
 })
 
-app.get("/execute", (_req, res) => {
-  executeTask();
+app.get("/execute", async (_req, res) => {
+  try {
+    await run("manual")
+    res.status(200).send("Execution trigger completed")
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Unknown error"
+    res.status(500).send(`Execution failed: ${message}`)
+  }
 })
 
 app.get("/logs", (_req, res) => {
