@@ -4,7 +4,6 @@ import { PassThrough } from "stream"
 import { Seat } from "../types/Seat"
 import { appendSeatPage } from "../utils/buildSeatMatrix"
 import { sendPDFMail } from "../utils/mailer"
-import { getSentReportKeys, saveSentReportKeys } from "../store/reportDayStore"
 import {
   formatPrettyDateTime,
   getIstDateString,
@@ -34,7 +33,6 @@ type DirectionResult = {
     content: Buffer
   }
   pagesAdded: number
-  mailedKeys: Set<string>
 }
 
 const WINDOW_DAYS = 3
@@ -153,14 +151,12 @@ function toTimeSortValue(dateTime: string | undefined) {
 
 async function processDirection(
   dir: Direction,
-  dates: Date[],
-  sentKeys: Set<string>
+  dates: Date[]
 ): Promise<DirectionResult> {
   const doc = new PDFDocument({ autoFirstPage: false })
   const stream = new PassThrough()
   const chunks: Buffer[] = []
   let pagesAdded = 0
-  const mailedKeys = new Set<string>()
 
   doc.pipe(stream)
   stream.on("data", c => chunks.push(c))
@@ -169,12 +165,6 @@ async function processDirection(
 
   for (const d of dates) {
     const date = formatDateUTC(d)
-    const dayDirectionKey = `${date}|${dir.label}`
-
-    if (sentKeys.has(dayDirectionKey)) {
-      console.log(`DATE_DIRECTION_ALREADY_MAILED_SKIP ${dir.label} ${date}`)
-      continue
-    }
 
     console.log(`DATE_PROCESS_START ${dir.label} ${date}`)
 
@@ -271,7 +261,6 @@ async function processDirection(
           })
 
           pagesAdded += 1
-          mailedKeys.add(dayDirectionKey)
           console.log(`PAGE_ADDED ${dir.label} ${date} route=${routeId}`)
         } catch (err) {
           const message = err instanceof Error ? err.message : "Unknown error"
@@ -308,7 +297,6 @@ async function processDirection(
       content: Buffer.concat(chunks),
     },
     pagesAdded,
-    mailedKeys,
   }
 }
 
@@ -318,7 +306,6 @@ export default async function executeTask() {
   const baseDate = new Date()
   const dates = getTargetDatesUTC(baseDate)
   const targetDates = dates.map(d => formatDateUTC(d))
-  const sentKeys = getSentReportKeys()
 
   const directions: Direction[] = [
     {
@@ -339,7 +326,7 @@ export default async function executeTask() {
 
   const results: DirectionResult[] = []
   for (const dir of directions) {
-    results.push(await processDirection(dir, dates, sentKeys))
+    results.push(await processDirection(dir, dates))
   }
 
   const totalPages = results.reduce((sum, r) => sum + r.pagesAdded, 0)
@@ -352,11 +339,6 @@ export default async function executeTask() {
     results.map(r => r.attachment),
     `Bus Seat Report | ${targetDates.join(", ")}`
   )
-
-  for (const result of results) {
-    result.mailedKeys.forEach(key => sentKeys.add(key))
-  }
-  saveSentReportKeys(sentKeys)
 
   console.log(`TASK_END pages=${totalPages} attachments=${results.length}`)
 }

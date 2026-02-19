@@ -18,7 +18,6 @@ const pdfkit_1 = __importDefault(require("pdfkit"));
 const stream_1 = require("stream");
 const buildSeatMatrix_1 = require("../utils/buildSeatMatrix");
 const mailer_1 = require("../utils/mailer");
-const reportDayStore_1 = require("../store/reportDayStore");
 const dateTimeFormatter_1 = require("../utils/dateTimeFormatter");
 const WINDOW_DAYS = 3;
 function formatDateUTC(d) {
@@ -118,24 +117,18 @@ function toTimeSortValue(dateTime) {
     const ts = Date.parse(dateTime);
     return Number.isNaN(ts) ? Number.MAX_SAFE_INTEGER : ts;
 }
-function processDirection(dir, dates, sentKeys) {
+function processDirection(dir, dates) {
     return __awaiter(this, void 0, void 0, function* () {
         var _a, _b, _c, _d;
         const doc = new pdfkit_1.default({ autoFirstPage: false });
         const stream = new stream_1.PassThrough();
         const chunks = [];
         let pagesAdded = 0;
-        const mailedKeys = new Set();
         doc.pipe(stream);
         stream.on("data", c => chunks.push(c));
         console.log(`DIRECTION_START ${dir.label}`);
         for (const d of dates) {
             const date = formatDateUTC(d);
-            const dayDirectionKey = `${date}|${dir.label}`;
-            if (sentKeys.has(dayDirectionKey)) {
-                console.log(`DATE_DIRECTION_ALREADY_MAILED_SKIP ${dir.label} ${date}`);
-                continue;
-            }
             console.log(`DATE_PROCESS_START ${dir.label} ${date}`);
             try {
                 const response = yield axios_1.default.get("https://onlineksrtcswift.com/api/resource/searchRoutesV4", {
@@ -203,7 +196,6 @@ function processDirection(dir, dates, sentKeys) {
                             arrivalTime: (0, dateTimeFormatter_1.formatPrettyDateTime)(arrivalTime),
                         });
                         pagesAdded += 1;
-                        mailedKeys.add(dayDirectionKey);
                         console.log(`PAGE_ADDED ${dir.label} ${date} route=${routeId}`);
                     }
                     catch (err) {
@@ -239,7 +231,6 @@ function processDirection(dir, dates, sentKeys) {
                 content: Buffer.concat(chunks),
             },
             pagesAdded,
-            mailedKeys,
         };
     });
 }
@@ -249,7 +240,6 @@ function executeTask() {
         const baseDate = new Date();
         const dates = getTargetDatesUTC(baseDate);
         const targetDates = dates.map(d => formatDateUTC(d));
-        const sentKeys = (0, reportDayStore_1.getSentReportKeys)();
         const directions = [
             {
                 label: "UP",
@@ -268,7 +258,7 @@ function executeTask() {
         ];
         const results = [];
         for (const dir of directions) {
-            results.push(yield processDirection(dir, dates, sentKeys));
+            results.push(yield processDirection(dir, dates));
         }
         const totalPages = results.reduce((sum, r) => sum + r.pagesAdded, 0);
         if (!totalPages) {
@@ -276,10 +266,6 @@ function executeTask() {
             return;
         }
         yield (0, mailer_1.sendPDFMail)(results.map(r => r.attachment), `Bus Seat Report | ${targetDates.join(", ")}`);
-        for (const result of results) {
-            result.mailedKeys.forEach(key => sentKeys.add(key));
-        }
-        (0, reportDayStore_1.saveSentReportKeys)(sentKeys);
         console.log(`TASK_END pages=${totalPages} attachments=${results.length}`);
     });
 }
