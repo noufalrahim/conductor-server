@@ -13,7 +13,16 @@ app.get("/", (_req, res) => {
   res.send("Welcome to conductor server!")
 })
 
-app.get("/execute", async (_req, res) => {
+app.get("/execute", async (req, res) => {
+  const cronSecret = process.env.CRON_SECRET
+  if (cronSecret) {
+    const authHeader = req.headers["authorization"]
+    if (authHeader !== `Bearer ${cronSecret}`) {
+      res.status(401).send("Unauthorized")
+      return
+    }
+  }
+
   try {
     await run("manual")
     res.status(200).send("Execution trigger completed")

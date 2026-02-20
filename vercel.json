@@ -10,14 +10,6 @@
     {
       "path": "/execute",
       "schedule": "30 6 * * *"
-    },
-    {
-      "path": "/execute",
-      "schedule": "30 11 * * *"
-    },
-    {
-      "path": "/execute",
-      "schedule": "30 13 * * *"
     }
   ],
   "routes": [
