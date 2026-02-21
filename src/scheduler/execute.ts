@@ -9,6 +9,7 @@ import {
   formatPrettyDateTime,
   getIstDateString,
   getIstHour,
+  ensureIst,
 } from "../utils/dateTimeFormatter"
 import { sendPDFMail } from "../utils/mailer"
 
@@ -141,7 +142,7 @@ function validateSeats(seats: Seat[]) {
 
 function toTimeSortValue(dateTime: string | undefined) {
   if (!dateTime) return Number.MAX_SAFE_INTEGER
-  const ts = Date.parse(dateTime)
+  const ts = Date.parse(ensureIst(dateTime))
   return Number.isNaN(ts) ? Number.MAX_SAFE_INTEGER : ts
 }
 

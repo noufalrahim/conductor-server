@@ -1,7 +1,16 @@
 const IST_TIMEZONE = "Asia/Kolkata"
 
+export function ensureIst(dateTime: string) {
+  if (typeof dateTime !== "string") return dateTime;
+  const normalized = dateTime.trim().replace(" ", "T");
+  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?(\.\d+)?$/.test(normalized)) {
+    return `${normalized}+05:30`;
+  }
+  return dateTime;
+}
+
 function getIstDateParts(dateTime: string) {
-  const d = new Date(dateTime)
+  const d = new Date(ensureIst(dateTime))
 
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: IST_TIMEZONE,
@@ -27,7 +36,7 @@ function getIstDateParts(dateTime: string) {
 }
 
 export function getIstDateString(dateTime: string) {
-  const d = new Date(dateTime)
+  const d = new Date(ensureIst(dateTime))
   return new Intl.DateTimeFormat("en-CA", {
     timeZone: IST_TIMEZONE,
     year: "numeric",
@@ -37,7 +46,7 @@ export function getIstDateString(dateTime: string) {
 }
 
 export function getIstHour(dateTime: string) {
-  const d = new Date(dateTime)
+  const d = new Date(ensureIst(dateTime))
   return Number(
     new Intl.DateTimeFormat("en-US", {
       timeZone: IST_TIMEZONE,
@@ -53,9 +62,9 @@ export function formatPrettyDateTime(dateTime: string) {
 
   const suffix =
     day % 10 === 1 && day !== 11 ? "st" :
-    day % 10 === 2 && day !== 12 ? "nd" :
-    day % 10 === 3 && day !== 13 ? "rd" :
-    "th"
+      day % 10 === 2 && day !== 12 ? "nd" :
+        day % 10 === 3 && day !== 13 ? "rd" :
+          "th"
 
   return `${day}${suffix} ${month} ${year}, ${time} IST`
 }
