@@ -1,26 +1,19 @@
 {
-  "version": 2,
   "functions": {
-    "src/index.ts": {
+    "api/index.ts": {
       "maxDuration": 60
     }
   },
-  "builds": [
+  "rewrites": [
     {
-      "src": "src/index.ts",
-      "use": "@vercel/node"
+      "source": "/(.*)",
+      "destination": "/api/index"
     }
   ],
   "crons": [
     {
       "path": "/execute",
       "schedule": "30 6 * * *"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "src/index.ts"
     }
   ]
 }
