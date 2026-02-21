@@ -24,7 +24,7 @@ const defaultRoutes: RouteConfig[] = [
 ]
 
 const defaultConfig: AppConfig = {
-  timings: ["12:00", "17:00", "19:00"],
+  timings: ["17:00"],
   routes: defaultRoutes,
   emails: ["noufalrahim6784@gmail.com"],
   nightStartHour: 19,

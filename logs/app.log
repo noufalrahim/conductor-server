@@ -1051,3 +1051,15 @@ src/scheduler/execute.ts(312,5): error TS2345: Argument of type 'Buffer<ArrayBuf
 [2026-02-21T01:10:06.743Z] [object Object]
 [2026-02-21T01:10:06.744Z] TASK_END pages=15 attachments=2
 [2026-02-21T01:10:06.744Z] TASK_RUN_SUCCESS trigger=startup at=2026-02-21T01:10:06.744Z
+[2026-02-21T01:14:41.973Z] TASK_RUN_START trigger=startup at=2026-02-21T01:14:41.972Z
+[2026-02-21T01:14:41.973Z] TASK_START
+[2026-02-21T01:14:41.975Z] Server started on port 8000
+[2026-02-21T01:14:45.774Z] CRON_SCHEDULE_UPDATED timings=12:00,17:00,19:00,08:40
+[2026-02-21T01:14:46.166Z] DIRECTION_START UP
+[2026-02-21T01:14:46.167Z] DATE_PROCESS_START UP 2026-02-21
+[2026-02-21T01:14:50.169Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-21 route=4711~4901~10072~451~2026-02-21 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-21T01:14:50.175Z] PAGE_ADDED UP 2026-02-21 route=4711~4901~10072~451~2026-02-21
+[2026-02-21T01:14:51.862Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-21 route=815~815~10072~451~2026-02-21 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-21T01:14:51.869Z] PAGE_ADDED UP 2026-02-21 route=815~815~10072~451~2026-02-21
+[2026-02-21T01:14:52.323Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-21 route=799~781~10072~451~2026-02-21 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-21T01:14:52.328Z] PAGE_ADDED UP 2026-02-21 route=799~781~10072~451~2026-02-21

@@ -13,7 +13,7 @@
   "crons": [
     {
       "path": "/execute",
-      "schedule": "30 6,11,13 * * *"
+      "schedule": "30 11 * * *"
     }
   ]
 }
