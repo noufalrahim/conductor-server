@@ -845,3 +845,164 @@ src/scheduler/execute.ts(312,5): error TS2345: Argument of type 'Buffer<ArrayBuf
 [2026-02-19T18:14:32.680Z] CRON_SCHEDULE_UPDATED timings=12:00,17:00,19:00,23:57
 [2026-02-19T18:14:35.441Z] CRON_SCHEDULE_UPDATED timings=12:00,17:00,19:00,23:57
 [2026-02-19T18:14:38.635Z] CRON_SCHEDULE_UPDATED timings=12:00,17:00,19:00,23:57
+[2026-02-21T00:58:44.497Z] ERROR /Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+[2026-02-21T00:58:44.499Z] ERROR TSError: ⨯ Unable to compile TypeScript:
+[96msrc/store/appConfigStore.ts[0m:[93m105[0m:[93m44[0m - [91merror[0m[90m TS2769: [0mNo overload matches this call.
+  Overload 1 of 6, '(filter: Filter<Document>): Promise<WithId<Document> | null>', gave the following error.
+    Type 'string' is not assignable to type 'Condition<ObjectId> | undefined'.
+  Overload 2 of 6, '(filter: Filter<Document>): Promise<Document | null>', gave the following error.
+    Type 'string' is not assignable to type 'Condition<ObjectId> | undefined'.
+  Overload 3 of 6, '(filter: Filter<Document>, options?: (Omit<FindOneOptions, "timeoutMode"> & Abortable) | undefined): Promise<Document | null>', gave the following error.
+    Type 'string' is not assignable to type 'Condition<ObjectId> | undefined'.
+
+[7m105[0m     const doc = await collection.findOne({ _id: DOC_ID })
+[7m   [0m [91m                                           ~~~[0m
+
+  [96mnode_modules/mongodb/mongodb.d.ts[0m:[93m8851[0m:[93m5[0m
+    [7m8851[0m     _id: InferIdType<TSchema>;
+    [7m    [0m [96m    ~~~[0m
+    The expected type comes from property '_id' which is declared here on type 'Filter<Document>'
+  [96mnode_modules/mongodb/mongodb.d.ts[0m:[93m8851[0m:[93m5[0m
+    [7m8851[0m     _id: InferIdType<TSchema>;
+    [7m    [0m [96m    ~~~[0m
+    The expected type comes from property '_id' which is declared here on type 'Filter<Document>'
+  [96mnode_modules/mongodb/mongodb.d.ts[0m:[93m8851[0m:[93m5[0m
+    [7m8851[0m     _id: InferIdType<TSchema>;
+    [7m    [0m [96m    ~~~[0m
+    The expected type comes from property '_id' which is declared here on type 'Filter<Document>'
+[96msrc/store/appConfigStore.ts[0m:[93m107[0m:[93m36[0m - [91merror[0m[90m TS2322: [0mType 'string' is not assignable to type 'ObjectId'.
+
+[7m107[0m       await collection.insertOne({ _id: DOC_ID, ...defaultConfig })
+[7m   [0m [91m                                   ~~~[0m
+
+  [96mnode_modules/mongodb/mongodb.d.ts[0m:[93m7484[0m:[93m5[0m
+    [7m7484[0m     _id?: InferIdType<TSchema>;
+    [7m    [0m [96m    ~~~[0m
+    The expected type comes from property '_id' which is declared here on type 'OptionalId<Document>'
+[96msrc/store/appConfigStore.ts[0m:[93m127[0m:[93m9[0m - [91merror[0m[90m TS2322: [0mType 'string' is not assignable to type 'Condition<ObjectId> | undefined'.
+
+[7m127[0m       { _id: DOC_ID },
+[7m   [0m [91m        ~~~[0m
+
+  [96mnode_modules/mongodb/mongodb.d.ts[0m:[93m8851[0m:[93m5[0m
+    [7m8851[0m     _id: InferIdType<TSchema>;
+    [7m    [0m [96m    ~~~[0m
+    The expected type comes from property '_id' which is declared here on type 'Filter<Document>'
+
+    at createTSError [90m(/Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/[39mnode_modules/[4mts-node[24m/src/index.ts:859:12[90m)[39m
+    at reportTSError [90m(/Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/[39mnode_modules/[4mts-node[24m/src/index.ts:863:19[90m)[39m
+    at getOutput [90m(/Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/[39mnode_modules/[4mts-node[24m/src/index.ts:1077:36[90m)[39m
+    at Object.compile [90m(/Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/[39mnode_modules/[4mts-node[24m/src/index.ts:1433:41[90m)[39m
+    at Module.m._compile [90m(/Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/[39mnode_modules/[4mts-node[24m/src/index.ts:1617:30[90m)[39m
+[90m    at node:internal/modules/cjs/loader:1893:10[39m
+    at Object.require.extensions.<computed> [as .ts] [90m(/Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/[39mnode_modules/[4mts-node[24m/src/index.ts:1621:12[90m)[39m
+[90m    at Module.load (node:internal/modules/cjs/loader:1480:32)[39m
+[90m    at Module._load (node:internal/modules/cjs/loader:1299:12)[39m
+[90m    at TracingChannel.traceSync (node:diagnostics_channel:328:14)[39m {
+  diagnosticCodes: [ [33m2769[39m, [33m2322[39m, [33m2322[39m ]
+}
+[2026-02-21T00:59:03.631Z] ERROR /Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+[2026-02-21T00:59:03.632Z] ERROR TSError: ⨯ Unable to compile TypeScript:
+[96msrc/store/appConfigStore.ts[0m:[93m105[0m:[93m44[0m - [91merror[0m[90m TS2769: [0mNo overload matches this call.
+  Overload 1 of 6, '(filter: Filter<Document>): Promise<WithId<Document> | null>', gave the following error.
+    Type 'string' is not assignable to type 'Condition<ObjectId> | undefined'.
+  Overload 2 of 6, '(filter: Filter<Document>): Promise<Document | null>', gave the following error.
+    Type 'string' is not assignable to type 'Condition<ObjectId> | undefined'.
+  Overload 3 of 6, '(filter: Filter<Document>, options?: (Omit<FindOneOptions, "timeoutMode"> & Abortable) | undefined): Promise<Document | null>', gave the following error.
+    Type 'string' is not assignable to type 'Condition<ObjectId> | undefined'.
+
+[7m105[0m     const doc = await collection.findOne({ _id: DOC_ID })
+[7m   [0m [91m                                           ~~~[0m
+
+  [96mnode_modules/mongodb/mongodb.d.ts[0m:[93m8851[0m:[93m5[0m
+    [7m8851[0m     _id: InferIdType<TSchema>;
+    [7m    [0m [96m    ~~~[0m
+    The expected type comes from property '_id' which is declared here on type 'Filter<Document>'
+  [96mnode_modules/mongodb/mongodb.d.ts[0m:[93m8851[0m:[93m5[0m
+    [7m8851[0m     _id: InferIdType<TSchema>;
+    [7m    [0m [96m    ~~~[0m
+    The expected type comes from property '_id' which is declared here on type 'Filter<Document>'
+  [96mnode_modules/mongodb/mongodb.d.ts[0m:[93m8851[0m:[93m5[0m
+    [7m8851[0m     _id: InferIdType<TSchema>;
+    [7m    [0m [96m    ~~~[0m
+    The expected type comes from property '_id' which is declared here on type 'Filter<Document>'
+[96msrc/store/appConfigStore.ts[0m:[93m107[0m:[93m36[0m - [91merror[0m[90m TS2322: [0mType 'string' is not assignable to type 'ObjectId'.
+
+[7m107[0m       await collection.insertOne({ _id: DOC_ID, ...defaultConfig })
+[7m   [0m [91m                                   ~~~[0m
+
+  [96mnode_modules/mongodb/mongodb.d.ts[0m:[93m7484[0m:[93m5[0m
+    [7m7484[0m     _id?: InferIdType<TSchema>;
+    [7m    [0m [96m    ~~~[0m
+    The expected type comes from property '_id' which is declared here on type 'OptionalId<Document>'
+[96msrc/store/appConfigStore.ts[0m:[93m127[0m:[93m9[0m - [91merror[0m[90m TS2322: [0mType 'string' is not assignable to type 'Condition<ObjectId> | undefined'.
+
+[7m127[0m       { _id: DOC_ID },
+[7m   [0m [91m        ~~~[0m
+
+  [96mnode_modules/mongodb/mongodb.d.ts[0m:[93m8851[0m:[93m5[0m
+    [7m8851[0m     _id: InferIdType<TSchema>;
+    [7m    [0m [96m    ~~~[0m
+    The expected type comes from property '_id' which is declared here on type 'Filter<Document>'
+
+    at createTSError [90m(/Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/[39mnode_modules/[4mts-node[24m/src/index.ts:859:12[90m)[39m
+    at reportTSError [90m(/Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/[39mnode_modules/[4mts-node[24m/src/index.ts:863:19[90m)[39m
+    at getOutput [90m(/Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/[39mnode_modules/[4mts-node[24m/src/index.ts:1077:36[90m)[39m
+    at Object.compile [90m(/Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/[39mnode_modules/[4mts-node[24m/src/index.ts:1433:41[90m)[39m
+    at Module.m._compile [90m(/Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/[39mnode_modules/[4mts-node[24m/src/index.ts:1617:30[90m)[39m
+[90m    at node:internal/modules/cjs/loader:1893:10[39m
+    at Object.require.extensions.<computed> [as .ts] [90m(/Users/noufalrahim/Desktop/Projects/Server/NodeJs/conductor-server/[39mnode_modules/[4mts-node[24m/src/index.ts:1621:12[90m)[39m
+[90m    at Module.load (node:internal/modules/cjs/loader:1480:32)[39m
+[90m    at Module._load (node:internal/modules/cjs/loader:1299:12)[39m
+[90m    at TracingChannel.traceSync (node:diagnostics_channel:328:14)[39m {
+  diagnosticCodes: [ [33m2769[39m, [33m2322[39m, [33m2322[39m ]
+}
+[2026-02-21T00:59:53.208Z] TASK_RUN_START trigger=startup at=2026-02-21T00:59:53.208Z
+[2026-02-21T00:59:53.209Z] TASK_START
+[2026-02-21T00:59:53.211Z] Server started on port 8000
+[2026-02-21T00:59:57.686Z] CRON_SCHEDULE_UPDATED timings=12:00,17:00,19:00,08:40
+[2026-02-21T00:59:58.434Z] DIRECTION_START UP
+[2026-02-21T00:59:58.434Z] DATE_PROCESS_START UP 2026-02-21
+[2026-02-21T01:00:01.539Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-21 route=4711~4901~10072~451~2026-02-21 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-21T01:00:01.553Z] PAGE_ADDED UP 2026-02-21 route=4711~4901~10072~451~2026-02-21
+[2026-02-21T01:00:02.086Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-21 route=815~815~10072~451~2026-02-21 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-21T01:00:02.093Z] PAGE_ADDED UP 2026-02-21 route=815~815~10072~451~2026-02-21
+[2026-02-21T01:00:03.709Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-21 route=799~781~10072~451~2026-02-21 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-21T01:00:03.712Z] PAGE_ADDED UP 2026-02-21 route=799~781~10072~451~2026-02-21
+[2026-02-21T01:00:04.243Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-21 route=950~1011~10072~451~2026-02-21 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-21T01:00:04.252Z] PAGE_ADDED UP 2026-02-21 route=950~1011~10072~451~2026-02-21
+[2026-02-21T01:00:04.252Z] DATE_PROCESS_START UP 2026-02-22
+[2026-02-21T01:00:07.234Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-22 route=4711~4901~10072~451~2026-02-22 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-21T01:00:07.241Z] PAGE_ADDED UP 2026-02-22 route=4711~4901~10072~451~2026-02-22
+[2026-02-21T01:00:08.867Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-22 route=815~815~10072~451~2026-02-22 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-21T01:00:08.870Z] PAGE_ADDED UP 2026-02-22 route=815~815~10072~451~2026-02-22
+[2026-02-21T01:00:10.390Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-22 route=799~781~10072~451~2026-02-22 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-21T01:00:10.396Z] PAGE_ADDED UP 2026-02-22 route=799~781~10072~451~2026-02-22
+[2026-02-21T01:00:10.933Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-22 route=950~1011~10072~451~2026-02-22 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-21T01:00:10.938Z] PAGE_ADDED UP 2026-02-22 route=950~1011~10072~451~2026-02-22
+[2026-02-21T01:00:10.938Z] DATE_PROCESS_START UP 2026-02-23
+[2026-02-21T01:00:11.958Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-23 route=4711~4901~10072~451~2026-02-23 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-21T01:00:11.963Z] PAGE_ADDED UP 2026-02-23 route=4711~4901~10072~451~2026-02-23
+[2026-02-21T01:00:12.510Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-23 route=815~815~10072~451~2026-02-23 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-21T01:00:12.515Z] PAGE_ADDED UP 2026-02-23 route=815~815~10072~451~2026-02-23
+[2026-02-21T01:00:14.247Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-23 route=799~781~10072~451~2026-02-23 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-21T01:00:14.250Z] PAGE_ADDED UP 2026-02-23 route=799~781~10072~451~2026-02-23
+[2026-02-21T01:00:15.824Z] ERROR SEAT_VALIDATION_WARNINGS UP 2026-02-23 route=950~1011~10072~451~2026-02-23 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-21T01:00:15.828Z] PAGE_ADDED UP 2026-02-23 route=950~1011~10072~451~2026-02-23
+[2026-02-21T01:00:15.835Z] DIRECTION_START DOWN
+[2026-02-21T01:00:15.835Z] DATE_PROCESS_START DOWN 2026-02-21
+[2026-02-21T01:00:18.493Z] ERROR SEAT_VALIDATION_WARNINGS DOWN 2026-02-21 route=2823~2881~451~10072~2026-02-21 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-21T01:00:18.497Z] PAGE_ADDED DOWN 2026-02-21 route=2823~2881~451~10072~2026-02-21
+[2026-02-21T01:00:18.498Z] DATE_PROCESS_START DOWN 2026-02-22
+[2026-02-21T01:00:21.157Z] ERROR SEAT_VALIDATION_WARNINGS DOWN 2026-02-22 route=2823~2881~451~10072~2026-02-22 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-21T01:00:21.163Z] PAGE_ADDED DOWN 2026-02-22 route=2823~2881~451~10072~2026-02-22
+[2026-02-21T01:00:21.163Z] DATE_PROCESS_START DOWN 2026-02-23
+[2026-02-21T01:00:22.214Z] ERROR SEAT_VALIDATION_WARNINGS DOWN 2026-02-23 route=2823~2881~451~10072~2026-02-23 Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label:  | Duplicate seat label: 
+[2026-02-21T01:00:22.221Z] PAGE_ADDED DOWN 2026-02-23 route=2823~2881~451~10072~2026-02-23
+[2026-02-21T01:00:27.910Z] [object Object]
+[2026-02-21T01:00:27.912Z] TASK_END pages=15 attachments=2
+[2026-02-21T01:00:27.912Z] TASK_RUN_SUCCESS trigger=startup at=2026-02-21T01:00:27.912Z

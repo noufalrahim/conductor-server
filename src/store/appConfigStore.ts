@@ -61,12 +61,12 @@ function normalizeRoute(route: any): RouteConfig | null {
 function normalizeConfig(input: any): AppConfig {
   const timings: string[] = Array.isArray(input?.timings)
     ? Array.from(
-        new Set(
-          input.timings
-            .map((t: any) => String(t).trim())
-            .filter((t: string) => isValidTiming(t))
-        )
+      new Set(
+        input.timings
+          .map((t: any) => String(t).trim())
+          .filter((t: string) => isValidTiming(t))
       )
+    )
     : defaultConfig.timings
 
   const routes = Array.isArray(input?.routes)
@@ -75,12 +75,12 @@ function normalizeConfig(input: any): AppConfig {
 
   const emails: string[] = Array.isArray(input?.emails)
     ? Array.from(
-        new Set(
-          input.emails
-            .map((e: any) => String(e).trim().toLowerCase())
-            .filter((e: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e))
-        )
+      new Set(
+        input.emails
+          .map((e: any) => String(e).trim().toLowerCase())
+          .filter((e: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e))
       )
+    )
     : defaultConfig.emails
 
   const nightStartHourRaw = Number(input?.nightStartHour)
@@ -100,7 +100,7 @@ function normalizeConfig(input: any): AppConfig {
 export async function getAppConfig() {
   try {
     const db = await getDb()
-    const collection = db.collection(COLLECTION)
+    const collection = db.collection<AppConfig & { _id: string }>(COLLECTION)
 
     const doc = await collection.findOne({ _id: DOC_ID })
     if (!doc) {
@@ -121,7 +121,7 @@ export async function saveAppConfig(input: AppConfig) {
 
   try {
     const db = await getDb()
-    const collection = db.collection(COLLECTION)
+    const collection = db.collection<AppConfig & { _id: string }>(COLLECTION)
 
     await collection.updateOne(
       { _id: DOC_ID },
