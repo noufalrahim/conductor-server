@@ -32,18 +32,19 @@ type DirectionResult = {
 
 const WINDOW_DAYS = 3
 
-function formatDateUTC(d: Date) {
-  const yyyy = d.getUTCFullYear()
-  const mm = String(d.getUTCMonth() + 1).padStart(2, "0")
-  const dd = String(d.getUTCDate()).padStart(2, "0")
-  return `${yyyy}-${mm}-${dd}`
+function formatDateIST(d: Date) {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Kolkata",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(d)
 }
 
-function getTargetDatesUTC(baseDate: Date) {
+function getTargetDates(baseDate: Date) {
   return Array.from({ length: WINDOW_DAYS }, (_, offset) => {
-    const dt = new Date(baseDate)
-    dt.setUTCDate(baseDate.getUTCDate() + offset)
-    return dt
+    // Adding days safely via offset milliseconds
+    return new Date(baseDate.getTime() + offset * 24 * 60 * 60 * 1000)
   })
 }
 
@@ -161,7 +162,7 @@ async function processDirection(
   console.log(`DIRECTION_START ${dir.label}`)
 
   for (const d of dates) {
-    const date = formatDateUTC(d)
+    const date = formatDateIST(d)
 
     console.log(`DATE_PROCESS_START ${dir.label} ${date}`)
 
@@ -321,8 +322,8 @@ export default async function executeTask() {
   }
 
   const baseDate = new Date()
-  const dates = getTargetDatesUTC(baseDate)
-  const targetDates = dates.map(d => formatDateUTC(d))
+  const dates = getTargetDates(baseDate)
+  const targetDates = dates.map(d => formatDateIST(d))
 
   const results: DirectionResult[] = []
   for (const route of activeRoutes) {
